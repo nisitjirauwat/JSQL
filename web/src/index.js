@@ -122,6 +122,9 @@ class MyTable extends React.Component {
               }
             })
           }
+          <td key={`${this.props.table.table_name}-delete-${rowIndex}`}>
+            <button class="button is-danger" onClick={() => this.RemoveBody(rowIndex)}>Remove</button>
+          </td>
         </tr>
       })
   }
@@ -140,9 +143,30 @@ class MyTable extends React.Component {
     </div>
   }
 
+  AddBody() {
+    const mainValues = this.props.table.values
+
+    const values = this.props.table.columns
+      .map (column => {
+        return {
+          "ref_row": 0,
+          "value": ""
+        }
+      })
+  
+    mainValues.push (values)
+    this.props.updateTable ({...this.props.table, mainValues }, this.props.tableIndex)
+  }
+
+  RemoveBody(index) {
+    const mainValues = this.props.table.values
+    mainValues.splice(index, 1)
+    this.props.updateTable ({...this.props.table, mainValues }, this.props.tableIndex)
+  }
+
   render() {
     return (
-      <section style={{marginBottom: "16px"}}>
+      <section style={{marginBottom: "32px"}}>
         <div><span class="tag is-primary">{this.props.table.table_name}</span></div>
         <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
           <thead>
@@ -154,6 +178,7 @@ class MyTable extends React.Component {
             {this.generateBody()}
           </tbody>
         </table>
+        <button class="button is-link" onClick={() => this.AddBody()}>Add</button>
       </section>
     );
   }
