@@ -41,6 +41,10 @@ app.listen(PORT, () => console.log(`Listening at http://localhost:${PORT}`))
 
 const jsonToSql = (json) => {
     return json.reduce((sql, table) => {
+        if (table.values.length == 0) {
+            return sql;
+        }
+
         const columnsSql = table.columns.map(column => column.name).join()
 
         const mapValues = table.values.map(values => {
