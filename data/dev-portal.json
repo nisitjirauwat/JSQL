@@ -1,5 +1,252 @@
 [
     {
+        "service": "auth",
+        "table_name": "odin.identity_ledger",
+        "columns": [
+            {
+                "name": "reference",
+                "has_ref": false
+            },
+            {
+                "name": "identity_id",
+                "has_ref": false
+            }
+        ],
+        "values": [
+            [
+                {
+                    "value": "'1550551556-BGSi8gKeGwjsGfNQkQysggONCCkuDLzN'"
+                },
+                {
+                    "value": "'tester.young.007@gmail.com'"
+                }
+            ]
+        ]
+    },
+    {
+        "service": "auth",
+        "table_name": "odin.credentials_password_ledger",
+        "columns": [
+            {
+                "name": "reference",
+                "has_ref": true,
+                "ref": {
+                    "table": "odin.identity_ledger",
+                    "column": "reference"
+                }
+            },
+            {
+                "name": "identity_id",
+                "has_ref": true,
+                "ref": {
+                    "table": "odin.identity_ledger",
+                    "column": "identity_id"
+                }
+            },
+            {
+                "name": "login",
+                "has_ref": false
+            },
+            {
+                "name": "password",
+                "has_ref": false
+            },
+            {
+                "name": "process",
+                "has_ref": false
+            }
+        ],
+        "values": [
+            [
+                {
+                    "value": "",
+                    "ref_row": 0
+                },
+                {
+                    "value": "",
+                    "ref_row": 0
+                },
+                {
+                    "value": "'tester.young.007@gmail.com'"
+                },
+                {
+                    "value": "'dTKs/IOdshN6CbHWzvb4khf3NpPP7/sqZHVdUX/l5Gs='"
+                },
+                {
+                    "value": "'{\"name\": \"pbkdf2-sha256\", \"salt\": \"TOs6zECc/g623ZZkrle18r1NjLjUQZD5\", \"length\": 32, \"rounds\": 300000}'"
+                }
+            ]
+        ]
+    },
+    {
+        "service": "auth",
+        "table_name": "odin.identity_full_name_ledger",
+        "columns": [
+            {
+                "name": "reference",
+                "has_ref": true,
+                "ref": {
+                    "table": "odin.identity_ledger",
+                    "column": "reference"
+                }
+            },
+            {
+                "name": "identity_id",
+                "has_ref": true,
+                "ref": {
+                    "table": "odin.identity_ledger",
+                    "column": "identity_id"
+                }
+            },
+            {
+                "name": "full_name",
+                "has_ref": false
+            }
+        ],
+        "values": [
+            [
+                {
+                    "value": "",
+                    "ref_row": 0
+                },
+                {
+                    "value": "",
+                    "ref_row": 0
+                },
+                {
+                    "value": "'Tester young'"
+                }
+            ]
+        ]
+    },
+    {
+        "service": "auth",
+        "table_name": "odin.identity_email_ledger",
+        "columns": [
+            {
+                "name": "reference",
+                "has_ref": true,
+                "ref": {
+                    "table": "odin.identity_ledger",
+                    "column": "reference"
+                }
+            },
+            {
+                "name": "identity_id",
+                "has_ref": true,
+                "ref": {
+                    "table": "odin.identity_ledger",
+                    "column": "identity_id"
+                }
+            },
+            {
+                "name": "email",
+                "has_ref": false
+            }
+        ],
+        "values": [
+            [
+                {
+                    "value": "",
+                    "ref_row": 0
+                },
+                {
+                    "value": "",
+                    "ref_row": 0
+                },
+                {
+                    "value": "'tester.young.007@gmail.com'"
+                }
+            ]
+        ]
+    },
+    {
+        "service": "auth",
+        "table_name": "odin.app_user_ledger",
+        "columns": [
+            {
+                "name": "reference",
+                "has_ref": false
+            },
+            {
+                "name": "app_id",
+                "has_ref": false
+            },
+            {
+                "name": "identity_id",
+                "has_ref": true,
+                "ref": {
+                    "table": "odin.identity_ledger",
+                    "column": "identity_id"
+                }
+            },
+            {
+                "name": "app_user_id",
+                "has_ref": true,
+                "ref": {
+                    "table": "odin.identity_ledger",
+                    "column": "identity_id"
+                }
+            }
+        ],
+        "values": [
+            [
+                {
+                    "value": "'1570096929.289219-w1oz'"
+                },
+                {
+                    "value": "'hotkit-hotplay"
+                },
+                {
+                    "value": "",
+                    "ref_row": 0
+                },
+                {
+                    "value": "",
+                    "ref_row": 0
+                }
+            ]
+        ]
+    },
+    {
+        "service": "inventory",
+        "table_name": "odin.app",
+        "columns": [
+            {
+                "name": "app_id",
+                "has_ref": false
+            },
+            {
+                "name": "app_name",
+                "has_ref": false
+            },
+            {
+                "name": "access_policy",
+                "has_ref": false
+            },
+            {
+                "name": "data_sharing_policy",
+                "has_ref": false
+            }
+        ],
+        "values": [
+            [
+                {
+                    "value": "'test001'"
+                },
+                {
+                    "value": "'test001'"
+                },
+                {
+                    "value": "'INVITE_ONLY'"
+                },
+                {
+                    "value": "'ALL'"
+                }
+            ]
+        ]
+    },
+    {
         "service": "advertise",
         "table_name": "game",
         "columns": [
