@@ -1,6 +1,7 @@
 const bodyParser = require('body-parser')
 const express = require('express')
 const fs = require('fs')
+const moment = require('moment')
 
 
 const app = express()
@@ -34,7 +35,7 @@ app.post('/data/:name', (req, res) => {
             return
         }
         const services = findServices(req.body.tables)
-        const dir = `${fileName}-${new Date()}`;
+        const dir = `${fileName}-${moment().format()}`;
         fs.mkdir(`./sql/${dir}`, (err) => {
             if (err) {
                 res.status(400).json({ error: err })
