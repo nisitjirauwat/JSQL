@@ -167,7 +167,7 @@ class MyTable extends React.Component {
   render() {
     return (
       <section style={{marginBottom: "32px"}}>
-        <div><span class="tag is-primary">{this.props.table.table_name}</span></div>
+        <div><span class="tag is-success">{this.props.table.service}</span><span class="tag is-primary">{this.props.table.table_name}</span></div>
         <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
           <thead>
             <tr>

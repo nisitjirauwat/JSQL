@@ -1,5 +1,6 @@
 [
     {
+        "service": "advertise",
         "table_name": "game",
         "columns": [
             {
@@ -31,6 +32,7 @@
         ]
     },
     {
+        "service": "advertise",
         "table_name": "object",
         "columns": [
             {
