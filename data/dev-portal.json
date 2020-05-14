@@ -1,0 +1,25 @@
+[
+  {
+    "table_name": "game",
+    "columns": [
+      {"name": "slug", "has_ref": false},
+      {"name": "name", "has_ref": false}
+    ],
+    "values": [
+      [{"value": "'eh'"}, {"value": "'EH'"}],
+      [{"value": "'jumpjump'"}, {"value": "'Jumpjump'"}]
+    ]
+  },
+  {
+    "table_name": "object",
+    "columns": [
+      {"name": "game_id", "has_ref": true, "ref": {"table": "game", "column": "slug"}},
+      {"name": "slug", "has_ref": false},
+      {"name": "name", "has_ref": false}
+    ],
+    "values": [
+      [{"value": "", "ref_row": 0}, {"value": "'car'"}, {"value": "'Car'"}],
+      [{"value": "", "ref_row": 0}, {"value": "'car2'"}, {"value": "'Car2'"}]
+    ]
+  }
+]
