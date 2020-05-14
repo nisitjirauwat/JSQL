@@ -1,3 +1,4 @@
+const bodyParser = require('body-parser')
 const express = require('express')
 const fs = require('fs')
 
@@ -6,6 +7,7 @@ const app = express()
 
 const PORT = 3000
 
+app.use(bodyParser.json({ type: 'application/json' }))
 app.use('/', express.static('public'))
 
 app.get('/data/:name', (req, res) => {
@@ -16,15 +18,26 @@ app.get('/data/:name', (req, res) => {
     });
 })
 
-app.listen(PORT, () => console.log(`Listening at http://localhost:${PORT}`))
+app.put('/data/:name', (req, res) => {
+    const fileName = req.params.name
+    fs.writeFile(`./data/${fileName}.json`, JSON.stringify(req.body.tables, null, 4), (err) => {
+        if (err) res.status(400).json({ error: err })
+        res.send (req.body)
+    });
+})
 
-
-const saveData = (fileName, jsonString) => {
-    fs.writeFile(`${fileName}.json`, jsonString, (err) => {
-        if (err) throw err;
-        console.log(`${fileName}.json Saved!`);
+app.post('/data/:name', (req, res) => {
+    const fileName = req.params.name
+    fs.writeFile(`./data/${fileName}.json`, JSON.stringify(req.body.tables, null, 4), (err) => {
+        if (err) res.status(400).json({ error: err })
+        fs.writeFile(`./sql/${fileName}-${new Date()}.sql`, jsonToSql(req.body.tables), (err) => {
+            if (err) res.status(400).json({ error: err })
+            res.send (req.body)
+        })
     })
-}
+})
+
+app.listen(PORT, () => console.log(`Listening at http://localhost:${PORT}`))
 
 const jsonToSql = (json) => {
     return json.reduce((sql, table) => {
@@ -40,7 +53,7 @@ const jsonToSql = (json) => {
                     
                     const refColumnIndex = ref.columns.findIndex(c => c.name == column.ref.column)
                     console.log(refColumnIndex);
-                    return ref.values[value.ref_row - 1][refColumnIndex].value;
+                    return ref.values[value.ref_row][refColumnIndex].value;
                 } else {
                     return value.value;
                 }
@@ -54,11 +67,4 @@ const jsonToSql = (json) => {
             VALUES ${mapValues.join()};
         `
     }, '')
-}
-
-const saveSql = (fileName, sql) => {
-    fs.writeFile(`${fileName}.sql`, sql, (err) => {
-        if (err) throw err;
-        console.log(`${fileName}.sql Saved!`);
-    })
 }

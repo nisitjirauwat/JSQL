@@ -16,6 +16,32 @@ class Main extends React.Component {
     })
   }
 
+  saveData() {
+    axios.put(
+      `/data/${this.state.name}`,
+      {tables: this.state.data},
+      {
+        headers: {'Content-Type': 'application/json'}
+      }
+    )
+    .then(({data}) => {
+      console.log(data)
+    })
+  }
+
+  saveDataAndGenerateSQL() {
+    axios.post(
+      `/data/${this.state.name}`,
+      {tables: this.state.data},
+      {
+        headers: {'Content-Type': 'application/json'}
+      }
+    )
+    .then(({data}) => {
+      console.log(data)
+    })
+  }
+
   updateTable(table, index) {
     const tables = this.state.data
     tables[index] = table
@@ -34,6 +60,10 @@ class Main extends React.Component {
             updateTable={this.updateTable.bind(this)}/>)
           : null
         }
+        <div class="buttons">
+          <button class="button is-primary" onClick={() => this.saveData()}>Save</button>
+          <button class="button is-success" onClick={() => this.saveDataAndGenerateSQL()}>{"Save & Generate SQL"}</button>
+        </div>
       </div>
     );
   }
@@ -71,19 +101,6 @@ class MyTable extends React.Component {
   }
 
   generateBody() {
-    // const refs = this.props.table.columns
-    //   .map (column => {
-    //     console.log(column);
-        
-    //     if (column.has_ref) {
-    //       const ref = this.props.tables.find(t => t.table_name == column.ref.table)
-    //       const columnIndex = ref.columns.findIndex(c => c.name == column.ref.column)
-    //       return ref.values.map (values => values[columnIndex].value)
-    //     } else {
-    //       return null
-    //     }
-    //   })
-  
     return this.props.table.values
       .map ((values, rowIndex) => {
         return <tr key={`${this.props.table.table_name}-tr-${rowIndex}`}>
