@@ -35,22 +35,27 @@ app.post('/data/:name', (req, res) => {
             return
         }
         const services = findServices(req.body.tables)
-        const dir = `${fileName}-${moment().format()}`;
+        const dir = `${fileName}-${moment().format()}`
         fs.mkdir(`./sql/${dir}`, (err) => {
             if (err) {
                 res.status(400).json({ error: err })
                 return
             }
 
-            services.forEach ((service) => {
+            const hasErr = services.reduce ((hasErr, service) => {
                 fs.writeFile(`./sql/${dir}/${service}.sql`, generateSql(req.body.tables, service), (err) => {
-                    if (err) {
+                    if (err && !hasErr) {
                         res.status(400).json({ error: err })
-                        return
+                        return true
                     }
-                    res.send (req.body)
+
+                    return hasErr
                 })
-            })
+            }, false)
+
+            if (!hasErr) {
+                res.send (req.body)
+            }
         })
     })
 })

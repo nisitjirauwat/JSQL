@@ -218,8 +218,12 @@
     },
     {
         "service": "inventory",
-        "table_name": "odin.app",
+        "table_name": "odin.app_ledger",
         "columns": [
+            {
+                "name": "reference",
+                "has_ref": false
+            },
             {
                 "name": "app_id",
                 "has_ref": false
@@ -246,6 +250,9 @@
                     "value": "'test001'"
                 },
                 {
+                    "value": "'test001'"
+                },
+                {
                     "value": "'INVITE_ONLY'"
                 },
                 {
@@ -256,10 +263,10 @@
     },
     {
         "service": "advertise",
-        "table_name": "game",
+        "table_name": "game_company",
         "columns": [
             {
-                "name": "slug",
+                "name": "id",
                 "has_ref": false
             },
             {
@@ -270,18 +277,201 @@
         "values": [
             [
                 {
-                    "value": "'eh'"
+                    "value": "'7b5915f8-08ae-43f6-9a0c-692f0be9499f'"
                 },
                 {
-                    "value": "'EH'"
+                    "value": "'portal'"
                 }
-            ],
+            ]
+        ]
+    },
+    {
+        "service": "advertise",
+        "table_name": "game_company_users",
+        "columns": [
+            {
+                "name": "game_company_id",
+                "has_ref": true,
+                "ref": {
+                    "service": "advertise",
+                    "table": "game_company",
+                    "column": "id"
+                }
+            },
+            {
+                "name": "app_user_id",
+                "has_ref": true,
+                "ref": {
+                    "service": "auth",
+                    "table": "odin.identity_ledger",
+                    "column": "identity_id"
+                }
+            }
+        ],
+        "values": [
             [
                 {
-                    "value": "'jumpjump'"
+                    "ref_row": 0,
+                    "value": ""
                 },
                 {
-                    "value": "'Jumpjump'"
+                    "ref_row": 0,
+                    "value": ""
+                }
+            ]
+        ]
+    },
+    {
+        "service": "advertise",
+        "table_name": "game",
+        "columns": [
+            {
+                "name": "slug",
+                "has_ref": true,
+                "ref": {
+                    "service": "inventory",
+                    "table": "odin.app_ledger",
+                    "column": "app_id"
+                }
+            },
+            {
+                "name": "name",
+                "has_ref": false
+            },
+            {
+                "name": "company_id",
+                "has_ref": true,
+                "ref": {
+                    "service": "advertise",
+                    "table": "game_company",
+                    "column": "id"
+                }
+            },
+            {
+                "name": "status",
+                "has_ref": false
+            },
+            {
+                "name": "description",
+                "has_ref": false
+            },
+            {
+                "name": "age_rating_min",
+                "has_ref": false
+            },
+            {
+                "name": "age_rating_max",
+                "has_ref": false
+            },
+            {
+                "name": "genre",
+                "has_ref": false
+            },
+            {
+                "name": "perspective",
+                "has_ref": false
+            },
+            {
+                "name": "logo_id",
+                "has_ref": false
+            },
+            {
+                "name": "logo_url",
+                "has_ref": false
+            },
+            {
+                "name": "scene_video_url",
+                "has_ref": false
+            },
+            {
+                "name": "asset_bundle_url",
+                "has_ref": false
+            },
+            {
+                "name": "asset_bundle_url_ios",
+                "has_ref": false
+            },
+            {
+                "name": "asset_bundle_url_android",
+                "has_ref": false
+            },
+            {
+                "name": "asset_bundle_scene_url",
+                "has_ref": false
+            },
+            {
+                "name": "asset_bundle_scene_url_ios",
+                "has_ref": false
+            },
+            {
+                "name": "asset_bundle_scene_url_android",
+                "has_ref": false
+            },
+            {
+                "name": "gender",
+                "has_ref": false
+            }
+        ],
+        "values": [
+            [
+                {
+                    "value": "",
+                    "ref_row": 0
+                },
+                {
+                    "value": "'Fiatza Adventure'"
+                },
+                {
+                    "value": "",
+                    "ref_row": 0
+                },
+                {
+                    "value": "'active'"
+                },
+                {
+                    "value": "'description'"
+                },
+                {
+                    "value": "10"
+                },
+                {
+                    "value": "100"
+                },
+                {
+                    "value": "'Casual'"
+                },
+                {
+                    "value": "0"
+                },
+                {
+                    "value": "'logo-01'"
+                },
+                {
+                    "value": "'https://hip.alpha.hot-now.com/media/download/248d322d511ab29812135fe3f81bce1c4e7068cb3df55f140d382b0ce9d58ab6.FAJI0yLVEaspgSE1_j-BvOHE5waMs99V8UDTgrDOnVirY.png'"
+                },
+                {
+                    "value": "''"
+                },
+                {
+                    "value": "''"
+                },
+                {
+                    "value": "''"
+                },
+                {
+                    "value": "''"
+                },
+                {
+                    "value": "''"
+                },
+                {
+                    "value": "''"
+                },
+                {
+                    "value": "''"
+                },
+                {
+                    "value": "3"
                 }
             ]
         ]
