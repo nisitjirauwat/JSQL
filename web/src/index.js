@@ -90,7 +90,7 @@ class MyTable extends React.Component {
   handleSelectChange(rowIndex, columnIndex) {
     return (e) => {
       const values = this.props.table.values
-      values[rowIndex][columnIndex].ref_row = e.target.value
+      values[rowIndex][columnIndex].ref_row = parseInt (e.target.value)
       this.props.updateTable ({...this.props.table, values }, this.props.tableIndex)
     }
   }
@@ -108,11 +108,11 @@ class MyTable extends React.Component {
             values.map ((value, index) => {
               if (this.props.table.columns[index].has_ref) {
                 const column = this.props.table.columns[index]
-                const ref = this.props.tables.find(t => t.table_name == column.ref.table)
+                const ref = this.props.tables.find(t => t.table_name == column.ref.table && t.service == column.ref.service)
                 const refColumnIndex = ref.columns.findIndex(c => c.name == column.ref.column)
 
                 return <td key={`${this.props.table.table_name}-td-${rowIndex}-${index}`}>
-                  {this.generateRefDropdown(ref, rowIndex, index, refColumnIndex)}
+                  {this.generateRefDropdown(value.ref_row, ref, rowIndex, index, refColumnIndex)}
                   {ref.values[value.ref_row][refColumnIndex].value}
                 </td>
               } else {
@@ -129,10 +129,10 @@ class MyTable extends React.Component {
       })
   }
 
-  generateRefDropdown(ref, rowIndex, columnIndex, refColumnIndex) {
+  generateRefDropdown(refRow, ref, rowIndex, columnIndex, refColumnIndex) {
     return <div class="control" key={`${this.props.table.table_name}-option-${rowIndex}-${columnIndex}-${refColumnIndex}`}>
         <div class="select">
-          <select value={this.props.value} onChange={this.handleSelectChange(rowIndex, columnIndex)}>
+          <select value={refRow} onChange={this.handleSelectChange(rowIndex, columnIndex)}>
             { 
               ref.values.map ((_, index) =>
             <option key={`${this.props.table.table_name}-option-${rowIndex}-${columnIndex}-${refColumnIndex}-${index}`} value={index}>{`${ref.table_name}(${index})`}</option>
@@ -148,20 +148,17 @@ class MyTable extends React.Component {
 
     const values = this.props.table.columns
       .map (column => {
-        return {
-          "ref_row": 0,
-          "value": ""
-        }
+        return column.has_ref ? { "ref_row": 0, "value": "" } : {"value": "" }
       })
   
     mainValues.push (values)
-    this.props.updateTable ({...this.props.table, mainValues }, this.props.tableIndex)
+    this.props.updateTable ({...this.props.table, values: mainValues }, this.props.tableIndex)
   }
 
   RemoveBody(index) {
     const mainValues = this.props.table.values
     mainValues.splice(index, 1)
-    this.props.updateTable ({...this.props.table, mainValues }, this.props.tableIndex)
+    this.props.updateTable ({...this.props.table, values: mainValues }, this.props.tableIndex)
   }
 
   render() {

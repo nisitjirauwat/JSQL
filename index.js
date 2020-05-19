@@ -69,7 +69,7 @@ const generateSql = (json, service) => {
             const mapValue = values.map((value, index) => {
                 const column = table.columns[index]
                 if (column.has_ref) {
-                    const ref = json.find(t => t.table_name == column.ref.table)
+                    const ref = json.find(t => t.table_name == column.ref.table && t.service == column.ref.service)
                     const refColumnIndex = ref.columns.findIndex(c => c.name == column.ref.column)
                     return ref.values[value.ref_row][refColumnIndex].value
                 } else {
