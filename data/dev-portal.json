@@ -481,12 +481,21 @@
         "table_name": "object",
         "columns": [
             {
-                "name": "game_id",
+                "name": "game_slug",
+                "has_ref": true,
+                "ref": {
+                    "service": "inventory",
+                    "table": "odin.app_ledger",
+                    "column": "app_id"
+                }
+            },
+            {
+                "name": "game_company_id",
                 "has_ref": true,
                 "ref": {
                     "service": "advertise",
-                    "table": "game",
-                    "column": "slug"
+                    "table": "game_company",
+                    "column": "id"
                 }
             },
             {
@@ -495,6 +504,14 @@
             },
             {
                 "name": "name",
+                "has_ref": false
+            },
+            {
+                "name": "ad_type",
+                "has_ref": false
+            },
+            {
+                "name": "description",
                 "has_ref": false
             }
         ],
@@ -505,22 +522,97 @@
                     "ref_row": 0
                 },
                 {
+                    "value": "",
+                    "ref_row": 0
+                },
+                {
                     "value": "'car'"
                 },
                 {
                     "value": "'Car'"
+                },
+                {
+                    "value": "'IMPRESSION'"
+                },
+                {
+                    "value": "'description'"
                 }
-            ],
+            ]
+        ]
+    },
+    {
+        "service": "advertise",
+        "table_name": "adspace",
+        "columns": [
+            {
+                "name": "object_slug",
+                "has_ref": true,
+                "ref": {
+                    "service": "advertise",
+                    "table": "object",
+                    "column": "slug"
+                }
+            },
+            {
+                "name": "object_game_slug",
+                "has_ref": true,
+                "ref": {
+                    "service": "inventory",
+                    "table": "odin.app_ledger",
+                    "column": "app_id"
+                }
+            },
+            {
+                "name": "object_game_company_id",
+                "has_ref": true,
+                "ref": {
+                    "service": "advertise",
+                    "table": "game_company",
+                    "column": "id"
+                }
+            },
+            {
+                "name": "slug",
+                "has_ref": false
+            },
+            {
+                "name": "name",
+                "has_ref": false
+            },
+            {
+                "name": "sample_adspace_img_url",
+                "has_ref": false
+            },
+            {
+                "name": "requirement",
+                "has_ref": false
+            }
+        ],
+        "values": [
             [
                 {
                     "value": "",
                     "ref_row": 0
                 },
                 {
-                    "value": "'car2'"
+                    "value": "",
+                    "ref_row": 0
                 },
                 {
-                    "value": "'Car2'"
+                    "value": "",
+                    "ref_row": 0
+                },
+                {
+                    "value": "'banner-adspace'"
+                },
+                {
+                    "value": "'Banner Adspace'"
+                },
+                {
+                    "value": "'https://hip.alpha.hot-now.com/media/download/a9fb14e91d0453a05f8f0529334a1c2f012f0eaa0923c58912b33faba60ecfcd.FAqfsU6R0EU6BfjwUpM0ocLwEvDqoJI8WJErM_q6YOz80.jpg'"
+                },
+                {
+                    "value": "'\"{\"width\":\"728\", \"height\":\"90\", \"max_size\":\"3\", \"format\":[\".png\"]}\"'"
                 }
             ]
         ]
