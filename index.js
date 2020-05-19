@@ -131,10 +131,43 @@ const generateDeleteSql = (json, service) => {
                 } else {
                     return null
                 }
-            }, `DELETE FROM ${table.table_name} WHERE`)
+            })
 
-            deleteValueSql = deleteValues.filter(deleteValue => deleteValue != null).join(" AND ")
-            return `DELETE FROM ${table.table_name} WHERE ${deleteValueSql};\n`
+            let deleteValueSql = deleteValues.filter(deleteValue => deleteValue != null).join(" AND ")
+            deleteValueSql = `DELETE FROM ${table.table_name} WHERE ${deleteValueSql};\n`
+
+            const deleteRefValues = table.tables_ref.map(table_ref => {
+                const deleteRefValues = values.map((value, index) => {
+                    const column = table.columns[index]
+                    if (column.primary_key) {
+                        table_ref_column = table_ref.columns.find (c => c.name_ref == column.name)
+
+                        if (table_ref_column) {
+                            let v = value.value
+
+                            if (column.has_ref) {
+                                const ref = json.find(t => t.table_name == column.ref.table && t.service == column.ref.service)
+                                const refColumnIndex = ref.columns.findIndex(c => c.name == column.ref.column)
+                                v = ref.values[value.ref_row][refColumnIndex].value
+                            }
+
+                            return `${table_ref_column.name}=${v}`
+                        } else {
+                            return null
+                        }
+                    } else {
+                        return null
+                    }
+                })
+
+                let deleteRefValueSql = deleteRefValues.filter(deleteValue => deleteValue != null).join(" AND ")
+                return `DELETE FROM ${table_ref.table_name} WHERE ${deleteRefValueSql};\n`
+            })
+
+            return `
+                ${deleteRefValues.join("\n")}
+                ${deleteValueSql}
+            `
         })
 
         return `

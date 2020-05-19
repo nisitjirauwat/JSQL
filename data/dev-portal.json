@@ -14,6 +14,17 @@
                 "has_ref": false
             }
         ],
+        "tables_ref": [
+            {
+                "table_name": "odin.identity",
+                "columns": [
+                    {
+                        "name": "id",
+                        "name_ref": "identity_id"
+                    }
+                ]
+            }
+        ],
         "values": [
             [
                 {
@@ -63,6 +74,17 @@
                 "name": "process",
                 "primary_key": false,
                 "has_ref": false
+            }
+        ],
+        "tables_ref": [
+            {
+                "table_name": "odin.credentials",
+                "columns": [
+                    {
+                        "name": "identity_id",
+                        "name_ref": "identity_id"
+                    }
+                ]
             }
         ],
         "values": [
@@ -117,6 +139,7 @@
                 "has_ref": false
             }
         ],
+        "tables_ref": [],
         "values": [
             [
                 {
@@ -163,6 +186,7 @@
                 "has_ref": false
             }
         ],
+        "tables_ref": [],
         "values": [
             [
                 {
@@ -214,6 +238,25 @@
                 }
             }
         ],
+        "tables_ref": [
+            {
+                "table_name": "odin.app_user",
+                "columns": [
+                    {
+                        "name": "app_id",
+                        "name_ref": "app_id"
+                    },
+                    {
+                        "name": "identity_id",
+                        "name_ref": "identity_id"
+                    },
+                    {
+                        "name": "app_user_id",
+                        "name_ref": "app_user_id"
+                    }
+                ]
+            }
+        ],
         "values": [
             [
                 {
@@ -263,6 +306,17 @@
                 "has_ref": false
             }
         ],
+        "tables_ref": [
+            {
+                "table_name": "odin.app",
+                "columns": [
+                    {
+                        "name": "app_id",
+                        "name_ref": "app_id"
+                    }
+                ]
+            }
+        ],
         "values": [
             [
                 {
@@ -298,6 +352,7 @@
                 "has_ref": false
             }
         ],
+        "tables_ref": [],
         "values": [
             [
                 {
@@ -334,6 +389,7 @@
                 }
             }
         ],
+        "tables_ref": [],
         "values": [
             [
                 {
@@ -457,6 +513,7 @@
                 "has_ref": false
             }
         ],
+        "tables_ref": [],
         "values": [
             [
                 {
@@ -566,6 +623,7 @@
                 "has_ref": false
             }
         ],
+        "tables_ref": [],
         "values": [
             [
                 {
@@ -646,6 +704,7 @@
                 "has_ref": false
             }
         ],
+        "tables_ref": [],
         "values": [
             [
                 {
