@@ -36,7 +36,7 @@ app.post('/data/:name', (req, res) => {
         }
         const services = findServices(req.body.tables)
         const dir = `${fileName}-${moment().format()}`
-        fs.mkdir(`./sql/${dir}`, (err) => {
+        fs.mkdir(`./sql/${dir}`, { recursive: true }, (err) => {
             if (err) {
                 res.status(400).json({ error: err })
                 return
