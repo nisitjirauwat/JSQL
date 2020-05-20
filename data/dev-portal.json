@@ -729,7 +729,7 @@
                     "value": "'https://hip.alpha.hot-now.com/media/download/a9fb14e91d0453a05f8f0529334a1c2f012f0eaa0923c58912b33faba60ecfcd.FAqfsU6R0EU6BfjwUpM0ocLwEvDqoJI8WJErM_q6YOz80.jpg'"
                 },
                 {
-                    "value": "'\"{\"width\":\"728\", \"height\":\"90\", \"max_size\":\"3\", \"format\":[\".png\"]}\"'"
+                    "value": "'{\"width\":\"728\", \"height\":\"90\", \"max_size\":\"3\", \"format\":[\".png\"]}'"
                 }
             ]
         ]
