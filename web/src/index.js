@@ -1,7 +1,7 @@
 class Main extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { data: null, name: location.search.replace('?q=', '') };
+    this.state = { data: null, name: location.search.replace('?q=', ''), processing: false };
   }
 
   componentWillMount() {
@@ -17,6 +17,7 @@ class Main extends React.Component {
   }
 
   saveData() {
+    this.setState({ processing: true })
     axios.put(
       `/data/${this.state.name}`,
       {tables: this.state.data},
@@ -26,10 +27,12 @@ class Main extends React.Component {
     )
     .then(({data}) => {
       console.log(data)
+      this.setState({ processing: false })
     })
   }
 
   saveDataAndGenerateSQL() {
+    this.setState({ processing: true })
     axios.post(
       `/data/${this.state.name}`,
       {tables: this.state.data},
@@ -39,6 +42,7 @@ class Main extends React.Component {
     )
     .then(({data}) => {
       console.log(data)
+      this.setState({ processing: false })
     })
   }
 
@@ -60,10 +64,17 @@ class Main extends React.Component {
             updateTable={this.updateTable.bind(this)}/>)
           : null
         }
-        <div class="buttons">
-          <button class="button is-primary" onClick={() => this.saveData()}>Save</button>
-          <button class="button is-success" onClick={() => this.saveDataAndGenerateSQL()}>{"Save & Generate SQL"}</button>
-        </div>
+        {this.state.processing ?
+            <div class="buttons">
+              <button class="button is-primary" disabled>Save</button>
+              <button class="button is-success" disabled>{"Save & Generate SQL"}</button>
+              <div>Processing...</div>
+            </div>
+          : <div class="buttons">
+              <button class="button is-primary" onClick={() => this.saveData()}>Save</button>
+              <button class="button is-success" onClick={() => this.saveDataAndGenerateSQL()}>{"Save & Generate SQL"}</button>
+            </div>
+        }
       </div>
     );
   }
