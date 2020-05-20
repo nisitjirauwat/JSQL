@@ -4,17 +4,46 @@
   "description": "",
   "scripts": {
     "create_table": "node migration",
+    "copy": "copy-files-from-to",
     "build": "babel web/src --out-dir ./public/js --presets react-app/prod",
     "watch": "babel --watch web/src --out-dir ./public/js --presets react-app/prod"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.19.2",
+    "babel-standalone": "^6.26.0",
+    "bulma": "^0.8.2",
     "express": "^4.17.1",
-    "moment": "^2.25.3"
+    "moment": "^2.25.3",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-preset-react-app": "^3.1.2"
-  }
+    "babel-preset-react-app": "^3.1.2",
+    "copy-files-from-to": "^2.3.0"
+  },
+  "copyFiles": [
+    {
+      "from": "node_modules/axios/dist/axios.min.js",
+      "to": "public/js/axios.min.js"
+    },
+    {
+      "from": "node_modules/babel-standalone/babel.min.js",
+      "to": "public/js/babel.min.js"
+    },
+    {
+      "from": "node_modules/react-dom/umd/react-dom.production.min.js",
+      "to": "public/js/umd/react-dom.production.min.js"
+    },
+    {
+      "from": "node_modules/react/umd/react.production.min.js",
+      "to": "public/js/umd/react.production.min.js"
+    },
+    {
+      "from": "node_modules/bulma/css/bulma.min.css",
+      "to": "public/css/bulma.min.css"
+    }
+  ]
 }
